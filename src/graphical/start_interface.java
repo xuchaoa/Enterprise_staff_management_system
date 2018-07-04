@@ -7,8 +7,8 @@ import java.io.*;
 public class start_interface extends JFrame {
     public start_interface(){
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Already there
-        this.setExtendedState(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE); // Already there
+        //this.setExtendedState(JFrame.DISPOSE_ON_CLOSE);
         this.setUndecorated(true);
 
         this.setLayout(null);

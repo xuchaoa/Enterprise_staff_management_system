@@ -1,12 +1,11 @@
 package graphical;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 
 public class login extends JFrame implements ActionListener {
+
     JLabel jlb1,jlb2;
     JPasswordField jpf;
     JTextField jtf;
@@ -57,10 +56,15 @@ public class login extends JFrame implements ActionListener {
         jb2.setBounds(180,90,80,50);
 
 
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         this.setVisible(true);
+
         //move();
+        //this.dispose();
+        //return login_result;
+
+
 
     }
 
@@ -81,7 +85,26 @@ public class login extends JFrame implements ActionListener {
         switch (e.getActionCommand()){
             case "登陆":
                 String name = jtf.getText();
-                JOptionPane.showMessageDialog(null,"点击了登陆,name = "+name,"youngpark",JOptionPane.INFORMATION_MESSAGE);
+                String passwd = jpf.getText();
+
+                sql_excute login = new sql_excute();  //调用数据库执行函数，判断数据库密码是否正确。
+                boolean result = false;
+                result = login.sql_connect(name,passwd);
+                //System.out.println("判断结果："+result);
+                if(result == true){
+                    JOptionPane.showMessageDialog(null,"登陆成功,name = "+name+passwd,"登陆提示",JOptionPane.INFORMATION_MESSAGE);
+                    if(name.equals("admin")){
+                        new admin_menu("主菜单",10,10,500,500);
+                        this.dispose();
+                    }
+                    else
+                        //new user_menu();
+                    //new start_interface();
+                    this.dispose();
+                }
+                else
+                    JOptionPane.showMessageDialog(null,"账号或密码错误,name = "+name+passwd,"登陆提示",JOptionPane.INFORMATION_MESSAGE);
+
                 break;
             case "取消":
                 JOptionPane.showMessageDialog(null,"点击了 取消","youngpark",JOptionPane.INFORMATION_MESSAGE);
