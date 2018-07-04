@@ -36,7 +36,11 @@ class admin_menu extends JFrame implements ActionListener {
         item3 = new JMenuItem("删除");
         item3.setAccelerator(KeyStroke.getKeyStroke('D'));
         item4 = new JMenuItem("关于");
-        item4.addActionListener(this);
+
+        item4.addActionListener(this);     //添加监听器
+        item3.addActionListener(this);
+        item2.addActionListener(this);
+
         query1 = new JMenuItem("按员工");
         query2 = new JMenuItem("按部门");
         query3 = new JMenuItem("按工号");
@@ -67,7 +71,13 @@ class admin_menu extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
             case "关于":
+                System.out.println("关于界面捕获");
                 JOptionPane.showMessageDialog(null,"youngpark","2018",JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case "修改":
+                System.out.println("修改界面捕获");
+                admin_modify_interface admin = new admin_modify_interface();
+                admin.user("ssss");
                 break;
         }
     }
