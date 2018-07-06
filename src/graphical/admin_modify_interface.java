@@ -8,14 +8,15 @@ import java.awt.event.*;
 class admin_modify_interface extends JFrame implements ActionListener {
     JPanel p=new JPanel();
     JTable table;
-    Object a[][];
+    Object a[][] = new Object[45][6];
     Object name[] = {"姓名","性别","年龄","所属部门","工号","登录密码"};
     JButton button;
     public void user(String s){
         setTitle(s);
         button = new JButton("修改");             //最下方修改按钮
 
-        a = new Object[45][6];
+        //a = new Object[45][6];
+        a[0][0] = "xchoa";
         table = new JTable(a,name);           //表格
         Container con = getContentPane();
         getContentPane().add(new JScrollPane(table), BorderLayout.CENTER);

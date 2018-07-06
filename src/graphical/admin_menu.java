@@ -85,6 +85,11 @@ class admin_menu extends JFrame implements ActionListener {
                 new register();
                 break;
 
+            case "删除":
+                System.out.println("删除界面操作捕获");
+                new Delete_interface("删除界面");
+                break;
+
         }
     }
 }

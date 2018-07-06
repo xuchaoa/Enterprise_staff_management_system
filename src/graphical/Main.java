@@ -8,7 +8,10 @@ public class Main {
             //new start_interface();
             //Boolean result = false;
             //new login();
-            new main_login();
+            //new main_login();
+//            admin_modify_interface admin = new admin_modify_interface();
+//            admin.user("ssss");
+            new Delete_interface("sss");
             //new register();
             //new admin_menu("主菜单",10,10,500,500);
 //

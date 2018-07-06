@@ -1,5 +1,6 @@
 package graphical;
 
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -14,7 +15,7 @@ public class start_interface extends JFrame {
         this.setLayout(null);
 
         JLabel jb1 =new JLabel();
-        ImageIcon img = new ImageIcon("logo.png");
+        ImageIcon img = new ImageIcon("./src/2.jpg");
         jb1.setIcon(img);
         JLabel jb2 = new JLabel("企业员工管理系统");
 
@@ -23,13 +24,17 @@ public class start_interface extends JFrame {
         this.add(jb1);
 
         this.setBounds(500,500,700,500);
-        jb1.setBounds(250,10,200,200);
-        jb2.setBounds(250,250,200,100);
+        jb1.setBounds(50,10,561,300);
+        jb2.setBounds(150,300,400,130);
+
+        //jb2.setForeground(Color.RED);
+        jb2.setFont(new Font("楷体", Font.BOLD, 40));
+
         this.setVisible(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
         try{
-            Thread.sleep(5000);
+            Thread.sleep(2500);
         }catch (Exception E){
 
         }
@@ -38,4 +43,3 @@ public class start_interface extends JFrame {
 
 
 }
-

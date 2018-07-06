@@ -12,7 +12,7 @@ import java.sql.SQLException;
 
 public class sql_excute {
     static Connection con;//声明Connection对象
-    static Statement statement;//2.创建statement类对象，用来执行SQL语句
+    static Statement statement ;//2.创建statement类对象，用来执行SQL语句
 
     public static boolean sql_connect(String username,String passwd){
 
@@ -103,7 +103,40 @@ public class sql_excute {
     public static void delete(){
         
     }
-    public static void search(){
+    public static void search_by_department(){
 
+    }
+    public static String[][] search_by_id(String id){
+        sql_connect("admin","admin");
+        String sql = "select * from esm.alluser where department_id ="+id;
+        System.out.println("当前执行的sql语句："+sql);
+        int a = 0;
+        String result[][] = new String[30][5];
+        try {
+
+//            System.out.println("con:"+con);
+//            System.out.println("statement:"+statement);
+            ResultSet rs = statement.executeQuery(sql);
+            while(rs.next()){
+//                工号","姓名","性别","年龄","所属部门
+                result[a][0] = rs.getString("user_id");
+                result[a][1] = rs.getString("name");
+                result[a][2] = rs.getString("sex");
+                result[a][3] = rs.getString("age");
+                result[a][4] = rs.getString("department_id");
+                a++;
+            }
+            System.out.println("查询出的结果：\n");
+            for(int i=0;i<5;i++){
+                for(int j=0;j<5;j++){
+                    System.out.print(result[i][j]);
+                }
+            System.out.println();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println(e.toString());
+        }
+        return result;
     }
 }
