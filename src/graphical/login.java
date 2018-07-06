@@ -1,5 +1,6 @@
 package graphical;
 
+import javax.jws.soap.SOAPBinding;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -92,7 +93,7 @@ public class login extends JFrame implements ActionListener {
                 result = login.sql_connect(name,passwd);
                 //System.out.println("判断结果："+result);
                 if(result == true){
-                    JOptionPane.showMessageDialog(null,"登陆成功,name = "+name+passwd,"登陆提示",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"welcome back ! ","登陆提示",JOptionPane.INFORMATION_MESSAGE);
                     if(name.equals("admin")){
                         new admin_menu("主菜单",10,10,500,500);
                         this.dispose();

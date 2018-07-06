@@ -5,10 +5,11 @@ package graphical;
 
 public class Main {
         public static void main(String args[]){
-            new start_interface();
+            //new start_interface();
             //Boolean result = false;
-            new login();
-
+            //new login();
+            new main_login();
+            //new register();
             //new admin_menu("主菜单",10,10,500,500);
 //
 //            sql_excute test = new sql_excute();

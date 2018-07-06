@@ -37,7 +37,7 @@ public class sql_excute {
                 System.out.println("Succeessfully connecting to the Database!");
             statement = con.createStatement();
             //要执行的SQL语句
-            String sql = "select password from esm.alluser where name=\""+username+"\"";
+            String sql = "select password from esm.alluser where name='"+username+"'";
             //3.ResultSet类，用来存放获取的结果集
             ResultSet rs = statement.executeQuery(sql);
 //            System.out.println("-----------------");
@@ -74,7 +74,7 @@ public class sql_excute {
 
             e.printStackTrace();
         }
-
+        //System.out.println(current_password);
         if(current_password.equals(passwd)){
             return true;
         }
@@ -88,9 +88,9 @@ public class sql_excute {
             System.out.println(e.toString());
         }
     }
-    public static void register(int au_id,int department_id,String name,String sex,int age,String password){
+    public static void register(String au_id,String department_id,String name,String sex,String age,String password){
         String sql = "insert into esm.alluser(au_id,department_id,name,sex,age,password) values ("+au_id+","+department_id+",'"+name+"','"+sex+"',"+age+",'"+password+"')";
-        System.out.println(sql);
+        System.out.println("当前执行的sql语句："+sql);
         try {
             statement.executeUpdate(sql);
         }catch (Exception e){
