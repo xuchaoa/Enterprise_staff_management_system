@@ -78,7 +78,6 @@ class admin_menu extends JFrame implements ActionListener {
             case "修改":
                 System.out.println("修改界面操作捕获");
                 admin_modify_interface admin = new admin_modify_interface();
-                admin.user("信息修改界面");
                 break;
             case "录入":
                 System.out.println("录入界面操作捕获");

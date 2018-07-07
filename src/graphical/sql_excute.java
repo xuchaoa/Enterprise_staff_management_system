@@ -2,6 +2,7 @@ package graphical;
 
 
 import javax.management.Query;
+import javax.swing.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -100,13 +101,64 @@ public class sql_excute {
     public static void modify(){   //修改
 
     }
-    public static void delete(){
-        
+    public static void delete_by_id(String userid){
+        //DELETE * FROM table_name
+        sql_connect("admin","admin");
+        String sql = "delete from esm.alluser where user_id = "+userid;
+        System.out.println("当前执行的sql语句："+sql);
+        try{
+            statement.executeUpdate(sql);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
-    public static void search_by_department(){
-
+    public static String[][] search_by_userid(String userid){
+        String result[][] = new String[30][5];
+        sql_connect("admin","admin");
+        String sql = "select * from esm.alluser where user_id = "+userid;
+        System.out.println("当前执行的sql语句："+sql);
+        try{
+            //statement.executeUpdate(sql);
+            ResultSet rs = statement.executeQuery(sql);
+            int a = 0;
+            while(rs.next()){
+//                工号","姓名","性别","年龄","所属部门
+                result[a][0] = rs.getString("user_id");
+                result[a][1] = rs.getString("name");
+                result[a][2] = rs.getString("sex");
+                result[a][3] = rs.getString("age");
+                result[a][4] = rs.getString("department_id");
+                a++;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
-    public static String[][] search_by_id(String id){
+    public static String[][] search_by_username(String name){
+        String result[][] = new String[30][5];
+        sql_connect("admin","admin");
+        String sql = "select * from esm.alluser where name = '"+name+"'";
+        System.out.println("当前执行的sql语句："+sql);
+        try{
+            //statement.executeUpdate(sql);
+            ResultSet rs = statement.executeQuery(sql);
+            int a = 0;
+            while(rs.next()){
+//                工号","姓名","性别","年龄","所属部门
+                result[a][0] = rs.getString("user_id");
+                result[a][1] = rs.getString("name");
+                result[a][2] = rs.getString("sex");
+                result[a][3] = rs.getString("age");
+                result[a][4] = rs.getString("department_id");
+                a++;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }
+    public static String[][] search_by_department(String id){
         sql_connect("admin","admin");
         String sql = "select * from esm.alluser where department_id ="+id;
         System.out.println("当前执行的sql语句："+sql);
@@ -114,8 +166,8 @@ public class sql_excute {
         String result[][] = new String[30][5];
         try {
 
-//            System.out.println("con:"+con);
-//            System.out.println("statement:"+statement);
+//          System.out.println("con:"+con);
+//          System.out.println("statement:"+statement);
             ResultSet rs = statement.executeQuery(sql);
             while(rs.next()){
 //                工号","姓名","性别","年龄","所属部门

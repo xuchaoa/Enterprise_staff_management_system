@@ -1,9 +1,14 @@
 package graphical;
 
+import javafx.scene.control.Tab;
+
 import javax.swing.*;
+import javax.swing.table.DefaultTableColumnModel;
+import javax.swing.table.DefaultTableModel;
 import javax.xml.soap.Text;
 import java.awt.event.*;
 import java.awt.*;
+import java.util.Vector;
 
 class Delete_interface extends JFrame implements ActionListener {
 
@@ -17,9 +22,10 @@ class Delete_interface extends JFrame implements ActionListener {
     JTextArea ate1;                           //创建多行文本框
     JComboBox comBox;    //下拉列表
     JTable table;
-    Object Tab[][] = new Object[30][5];
+    Object Tab[][] = new String[30][5];
     //comBox = new JComboBox<String>();
     Box BaseBox,Box1,Box2,Box3,Box4,Box5,Box6,box1,box2,box3;
+    String name[] = {"工号","姓名","性别","年龄","所属部门"};  //表格组件
     public Delete_interface(){}
     public Delete_interface(String s){     //带参构造
 
@@ -35,11 +41,13 @@ class Delete_interface extends JFrame implements ActionListener {
         setLayout(new FlowLayout());
 
         comBox = new JComboBox();         //下拉列表框
-        comBox.addItem("工号");
         comBox.addItem("所属部门");
+        comBox.addItem("工号");
         comBox.addItem("姓     名");
 
-        Object name[] = {"工号","姓名","性别","年龄","所属部门"};  //表格组件
+        comBox.addActionListener(this);
+
+
 
 
         text = new JTextField(10);                  //文本框
@@ -55,18 +63,26 @@ class Delete_interface extends JFrame implements ActionListener {
         box2 =Box.createVerticalBox();
         box3 =Box.createVerticalBox();
 
-
-        table = new JTable(Tab,name);           //表格
+        //tablemodel = new DefaultTableModel(Tab,name);
+        table = new JTable();//表格
+        table.setModel(new DefaultTableModel(Tab,name));
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                selectRowMousePressed(e);
+            }
+        });
 
         setSize(200,200);
         id = new JButton("删除");               //按钮
-        retu = new JButton("返回");
-        clear = new JButton("清除");
+        retu = new JButton("清除");
+        clear = new JButton("退出");
         find = new JButton("查询");
         add(id);
         add(retu);
         add(clear);
         add(find);
+
 
         find.addActionListener(this);
         id.addActionListener(this);
@@ -132,33 +148,90 @@ class Delete_interface extends JFrame implements ActionListener {
         menubar.add(menu4);
         setJMenuBar(menubar);
     }
-    public void find(){                  //查询方法
+    public void selectRowMousePressed(MouseEvent e){  //选中行鼠标事件
+        System.out.println("鼠标事件捕获");
+        int selectedRow = this.table.getSelectedRow();
+        System.out.println("选中行的姓名："+table.getValueAt(selectedRow,1));
+//        this.wordwidTxt.setText(table.getValueAt(selectedRow,0)+"");
+//        this.wordTxt.setText(table.getValueAt(selectedRow, 1)+"");
+//        this.vocabularyCb.setSelectedItem(table.getValueAt(selectedRow, 2));
+//        this.meaningListTxt.setText(table.getValueAt(selectedRow, 3)+"");
+//        this.egTxt.setText(table.getValueAt(selectedRow, 4)+"");
+//        this.transTxt.setText(table.getValueAt(selectedRow, 5)+"");
+    }
+
+    public void show_result(String Tab[][]){
+        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        model.setRowCount(0);
+        for (int i=0;i< Tab.length;i++) {
+            Vector row = new Vector();
+            row.add(Tab[i][0]);
+            row.add(Tab[i][1]);
+            row.add(Tab[i][2]);
+            row.add(Tab[i][3]);
+            row.add(Tab[i][4]);
+
+            model.addRow(row);
+        }
 
     }
-    public void delete(){				//删除方法
 
-    }
-    public void clear(){ 				//清空方法
-
-    }
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println(text);
+        //System.out.println(text);able.repaint();
+        ////                table.validate();
+        ////                table.updateUI();
+        ////                table.revalidate();
+        ////                //table.rel
+        ////                tablemodel.fireTableDataChanged();
+
+
         String search_thing = text.getText();
+        Object box = e.getSource();
+        int select_num = comBox.getSelectedIndex(); //下拉列表选中的结果
+
+
         switch (e.getActionCommand()){
             case "查询":
-                Tab = sql_excute.search_by_id(search_thing);
+                System.out.println("combox选中数字为："+select_num);
+                if (select_num == 0){   //按部门
+                    Tab = sql_excute.search_by_department(search_thing);
+                    show_result((String[][]) Tab);
+                }
+                else if (select_num == 1){    //按工号
+                    Tab = sql_excute.search_by_userid(search_thing);
+                    show_result((String[][]) Tab);
+                }
+                else{   //按姓名
+                    Tab = sql_excute.search_by_username(search_thing);
+                    show_result((String[][]) Tab);
+                }
 
-                table.repaint();
-                table.repaint();
+                //new data_show(Tab,name);
+                //table.repaint();
+
                 break;
             case "删除":
-
+                int selectedRow = this.table.getSelectedRow();
+                System.out.println("删除的姓名："+table.getValueAt(selectedRow,1));
+                sql_excute.delete_by_id((String) table.getValueAt(selectedRow,0));
+                String username = (String) table.getValueAt(selectedRow,1);
+                JOptionPane.showMessageDialog(null,username+"已经被删除","删除提示",JOptionPane.INFORMATION_MESSAGE);
+                Tab = sql_excute.search_by_department(search_thing);
+                show_result((String[][]) Tab);
                 break;
 
             case "清除":
-
+                String[][] table_null = new String[30][5];
+                show_result(table_null);
                 break;
+
+            case "退出":
+                dispose();
+                break;
+
+            case "工号":
+                System.out.println("下拉列表捕获");
         }
 
     }
