@@ -9,6 +9,7 @@ public class test {
         wnd.setSize(100,100);
         wnd.setVisible(true);
 
+
     }
 
 }

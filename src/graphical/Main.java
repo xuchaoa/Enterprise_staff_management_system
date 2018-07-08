@@ -1,7 +1,7 @@
 package graphical;
 
-        import javax.swing.*;
-        import javax.xml.ws.handler.LogicalHandler;
+import javax.swing.*;
+import javax.xml.ws.handler.LogicalHandler;
 
 public class Main {
         public static void main(String args[]){
@@ -10,13 +10,14 @@ public class Main {
             //new login();
             //new main_login();
 
-            admin_modify_interface admin = new admin_modify_interface();
-            admin.setVisible(true);
+//            admin_modify_interface admin = new admin_modify_interface();
+//            admin.setVisible(true);
 
             //new Delete_interface("查询界面");
             //new data_show();
             //new register();
             //new admin_menu("主菜单",10,10,500,500);
+            new user_menu("用户主菜单","admin");
 //
 //            sql_excute test = new sql_excute();
 //            sql_excute.sql_connect("admin","admin");

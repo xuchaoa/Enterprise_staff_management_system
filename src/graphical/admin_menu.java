@@ -16,9 +16,11 @@ class admin_menu extends JFrame implements ActionListener {
     JMenuItem maintain1,maintain2;          //创建菜单项3；修改密码、数据备份。
     public admin_menu(){}
     public admin_menu(String s,int x,int y,int w,int h){     //带参构造
+        setLayout(null);
         init(s);
         setLocation(x,y);
         setSize(w,h);
+
         setVisible(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
@@ -41,6 +43,37 @@ class admin_menu extends JFrame implements ActionListener {
         item3.addActionListener(this);
         item2.addActionListener(this);
         item1.addActionListener(this);
+
+
+
+        JLabel aa = new JLabel("企业员工管理系统");
+        add(aa);
+        aa.setBounds(80,60,500,100);
+        //aa.setForeground(Color.RED);
+        aa.setFont(new Font("楷体", Font.BOLD, 40));
+
+
+        JButton c=new JButton("注销");
+        add(c);
+        c.setBounds(100,210,70,40);
+        JButton e=new JButton("退出");
+        add(e);
+        e.setBounds(300,210,70,40);
+
+
+        // 加载背景图片
+        ImageIcon bg = new ImageIcon("login.jpg");
+        // 把背景图片显示在一个标签里
+        JLabel label = new JLabel(bg);
+        //把标签的大小位置设置为图片刚好填充整个面
+        label.setBounds(0,0,bg.getIconWidth(),bg.getIconHeight());
+        //添加图片到frame的第二层
+        this.getLayeredPane().add(label,new Integer(Integer.MIN_VALUE));
+        //获取frame的最上层面板为了设置其背景颜色(JPanel有设置透明的方法)
+        JPanel jp=(JPanel)this.getContentPane();
+        jp.setOpaque(false);//设置透明
+
+
 
         query1 = new JMenuItem("按员工");
         query2 = new JMenuItem("按部门");
@@ -68,8 +101,8 @@ class admin_menu extends JFrame implements ActionListener {
         setJMenuBar(menubar);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+@Override
+   public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
             case "关于":
                 System.out.println("关于界面操作捕获");
@@ -92,6 +125,3 @@ class admin_menu extends JFrame implements ActionListener {
         }
     }
 }
-
-
-

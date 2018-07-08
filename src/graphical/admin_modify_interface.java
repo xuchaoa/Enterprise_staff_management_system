@@ -5,22 +5,17 @@ package graphical;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTable;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JList;
 import java.awt.Color;
-import javax.swing.UIManager;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JScrollPane;
 
-public class admin_modify_interface extends JFrame {
+public class admin_modify_interface extends JFrame implements ActionListener {
 
     private JPanel contentPane;
     private JTextField textField;
@@ -30,7 +25,11 @@ public class admin_modify_interface extends JFrame {
     private JTextField textField_4;
     private JTextField textField_5;
     private JTextField textField_6;
-    private JTable table;
+    JTable table;
+
+    String Tab[][] = new String[30][6];
+    String modify_data[] = new String[6];
+
 
     /**
      * Launch the application.
@@ -50,12 +49,14 @@ public class admin_modify_interface extends JFrame {
 
     public admin_modify_interface() {
 
+        setTitle("信息修改界面");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 550, 370);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
+
 
         JLabel label = new JLabel("\u59D3\u540D");
         label.setBounds(10, 291, 54, 23);
@@ -66,20 +67,22 @@ public class admin_modify_interface extends JFrame {
         contentPane.add(textField);
         textField.setColumns(10);
 
-        JButton button = new JButton("\u641C\u7D22");
+
+        JButton button = new JButton("搜索");
         button.setBounds(198, 291, 68, 30);
         contentPane.add(button);
 
-        JButton button_1 = new JButton("\u4FDD\u5B58");
+        JButton button_1 = new JButton("保存");
         button_1.setBounds(320, 291, 68, 30);
         contentPane.add(button_1);
 
-        JButton btnexcel = new JButton("\u9000\u51FA");
+        JButton btnexcel = new JButton("退出");
         btnexcel.setBounds(456, 291, 68, 30);
-        btnexcel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-            }
-        });
+
+        button.addActionListener(this);
+        button_1.addActionListener(this);
+        btnexcel.addActionListener(this);
+
         contentPane.add(btnexcel);
 
         JLabel label_1 = new JLabel("\u59D3\u540D");
@@ -173,5 +176,97 @@ public class admin_modify_interface extends JFrame {
                 }
         ));
         scrollPane_1.setViewportView(table);
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                selectRowMousePressed(e);
+            }
+        });
+    }
+
+    public void selectRowMousePressed(MouseEvent e){  //选中行鼠标事件
+        System.out.println("鼠标事件捕获");
+        int selectedRow = this.table.getSelectedRow();
+        System.out.println("选中行的姓名："+table.getValueAt(selectedRow,0));
+        this.textField_1.setText((String) table.getValueAt(selectedRow,0));
+        this.textField_2.setText((String) table.getValueAt(selectedRow,1));
+        this.textField_3.setText((String) table.getValueAt(selectedRow,2));
+        this.textField_4.setText((String) table.getValueAt(selectedRow,3));
+        this.textField_5.setText((String) table.getValueAt(selectedRow,4));
+        this.textField_6.setText((String) table.getValueAt(selectedRow,5));
+
+//        this.textField_5.setText((String) table.getValueAt(selectedRow,5));
+//        this.textField_6.setText((String) table.getValueAt(selectedRow,6));
+
+
+//        this.wordwidTxt.setText(table.getValueAt(selectedRow,0)+"");
+//        this.wordTxt.setText(table.getValueAt(selectedRow, 1)+"");
+//        this.vocabularyCb.setSelectedItem(table.getValueAt(selectedRow, 2));
+//        this.meaningListTxt.setText(table.getValueAt(selectedRow, 3)+"");
+//        this.egTxt.setText(table.getValueAt(selectedRow, 4)+"");
+//        this.transTxt.setText(table.getValueAt(selectedRow, 5)+"");
+    }
+
+
+    public void get_modify_data(){
+        modify_data[0] = textField_1.getText();
+        modify_data[1] = textField_2.getText();
+        modify_data[2] = textField_3.getText();
+        modify_data[3] = textField_4.getText();
+        modify_data[4] = textField_5.getText();
+        modify_data[5] = textField_6.getText();
+    }
+
+    public void show_result(String Tab[][]){
+        DefaultTableModel model = (DefaultTableModel) this.table.getModel();
+        model.setRowCount(0);
+        for (int i=0;i< Tab.length;i++) {
+            Vector row = new Vector();
+            row.add(Tab[i][0]);
+            row.add(Tab[i][1]);
+            row.add(Tab[i][2]);
+            row.add(Tab[i][3]);
+            row.add(Tab[i][4]);
+            row.add(Tab[i][5]);
+
+            model.addRow(row);
+        }
+
+    }
+
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String search_string = textField.getText();
+        System.out.println("获取到的搜索字符串："+search_string);
+        switch (e.getActionCommand()){
+            case "搜索":
+                System.out.println("搜索按钮捕获");
+                Tab = sql_excute.search_by_username_all(search_string);
+                for (int i=0;i<Tab.length;i++){
+                    for (int j=0;j<6;j++){
+                        System.out.print(Tab[i][j]+" ");
+                    }
+                    System.out.println();
+                }
+                show_result(Tab);
+                break;
+            case "保存":
+                get_modify_data();
+                System.out.println("修改后数据如下");
+                for (int i=0;i<6;i++){
+                    System.out.print(modify_data[i]+" ");
+                }
+                sql_excute.updata_modify_data(modify_data);
+
+                JOptionPane.showMessageDialog(null,modify_data[4]+"修改成功","修改提示",JOptionPane.INFORMATION_MESSAGE);
+                Tab = sql_excute.search_by_userid_modify(modify_data[4]);
+                show_result(Tab);
+                break;
+            case "退出":
+                dispose();
+                break;
+        }
     }
 }

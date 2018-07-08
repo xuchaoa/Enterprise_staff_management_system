@@ -126,6 +126,7 @@ public class sql_excute {
                 result[a][0] = rs.getString("user_id");
                 result[a][1] = rs.getString("name");
                 result[a][2] = rs.getString("sex");
+                System.out.println();
                 result[a][3] = rs.getString("age");
                 result[a][4] = rs.getString("department_id");
                 a++;
@@ -158,6 +159,30 @@ public class sql_excute {
         }
         return result;
     }
+    public static String[][] search_by_username_all(String name){
+        String result[][] = new String[30][6];
+        sql_connect("admin","admin");
+        String sql = "select * from esm.alluser where name = '"+name+"'";
+        System.out.println("当前执行的sql语句："+sql);
+        try{
+            //statement.executeUpdate(sql);
+            ResultSet rs = statement.executeQuery(sql);
+            int a = 0;
+            while(rs.next()){
+//                工号","姓名","性别","年龄","所属部门
+                result[a][0] = rs.getString("name");
+                result[a][1] = rs.getString("sex");
+                result[a][2] = rs.getString("age");
+                result[a][3] = rs.getString("department_id");
+                result[a][4] = rs.getString("user_id");
+                result[a][5] = rs.getString("password");
+                a++;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
+    }   //查询用户全部数据：6个字段
     public static String[][] search_by_department(String id){
         sql_connect("admin","admin");
         String sql = "select * from esm.alluser where department_id ="+id;
@@ -188,6 +213,57 @@ public class sql_excute {
         }catch (Exception e){
             e.printStackTrace();
             System.out.println(e.toString());
+        }
+        return result;
+    }
+    public static void updata_modify_data(String modify_data[]){        //admin信息修改界面调用
+        sql_connect("admin","admin");
+        String sql = "update esm.alluser set name='"+modify_data[0]+"',sex='"+modify_data[1]+"',age="+modify_data[2]+",department_id="+modify_data[3]+",user_id="+modify_data[4]+",password='"+modify_data[5]+"'where user_id="+modify_data[4];
+
+        System.out.println("当前执行的sql语句："+sql);
+        try{
+            //statement.executeUpdate(sql);
+            statement.executeUpdate(sql);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public static void updata_user_data(String modify_data[][]){        //user信息修改界面调用
+        sql_connect("admin","admin");
+        String sql = "update esm.alluser set name='"+modify_data[0][0]+"',sex='"+modify_data[0][1]+"',age="+modify_data[0][2]+",department_id="+modify_data[0][3]+",user_id="+modify_data[0][4]+",password='"+modify_data[0][5]+"' where name='"+modify_data[0][0]+"'";
+
+        System.out.println("当前执行的sql语句："+sql);
+        try{
+            //statement.executeUpdate(sql);
+            statement.executeUpdate(sql);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public static String[][] search_by_userid_modify(String userid){
+        String result[][] = new String[30][6];
+        sql_connect("admin","admin");
+        String sql = "select * from esm.alluser where user_id = "+userid;
+        System.out.println("当前执行的sql语句："+sql);
+        try{
+            //statement.executeUpdate(sql);
+            ResultSet rs = statement.executeQuery(sql);
+            int a = 0;
+            while(rs.next()){
+//                工号","姓名","性别","年龄","所属部门
+                result[a][0] = rs.getString("name");
+                result[a][1] = rs.getString("sex");
+                result[a][2] = rs.getString("age");
+                System.out.println();
+                result[a][3] = rs.getString("department_id");
+                result[a][4] = rs.getString("user_id");
+                result[a][5] = rs.getString("password");
+                a++;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
         return result;
     }
