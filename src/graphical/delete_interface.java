@@ -1,6 +1,7 @@
 package graphical;
 
 import javafx.scene.control.Tab;
+import sun.plugin.viewer.context.DefaultPluginAppletContext;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableColumnModel;
@@ -26,11 +27,17 @@ class Delete_interface extends JFrame implements ActionListener {
     //comBox = new JComboBox<String>();
     Box BaseBox,Box1,Box2,Box3,Box4,Box5,Box6,box1,box2,box3;
     String name[] = {"工号","姓名","性别","年龄","所属部门"};  //表格组件
+    String username = null;
+    int au_id = 0;
+    int department_id = 0;
     public Delete_interface(){}
-    public Delete_interface(String s){     //带参构造
+    public Delete_interface(String s,String username,int au_id,int department_id){     //带参构造
+        this.au_id = au_id;
+        this.department_id = department_id;
+        this.username = username;
 
         init(s);
-        setLocation(300,50);
+        setLocation(670,300);
         setSize(800,750);
         setVisible(true);
         validate();
@@ -178,35 +185,40 @@ class Delete_interface extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //System.out.println(text);able.repaint();
-        ////                table.validate();
-        ////                table.updateUI();
-        ////                table.revalidate();
-        ////                //table.rel
-        ////                tablemodel.fireTableDataChanged();
-
-
         String search_thing = text.getText();
         Object box = e.getSource();
         int select_num = comBox.getSelectedIndex(); //下拉列表选中的结果
-
-
         switch (e.getActionCommand()){
             case "查询":
-                System.out.println("combox选中数字为："+select_num);
-                if (select_num == 0){   //按部门
-                    Tab = sql_excute.search_by_department(search_thing);
-                    show_result((String[][]) Tab);
+                System.out.println("查询字符串为："+search_thing);
+                if (search_thing.length() == 0){
+                    JOptionPane.showMessageDialog(null,"搜索关键词不能为空","搜索提示",JOptionPane.INFORMATION_MESSAGE);
+                    break;
                 }
-                else if (select_num == 1){    //按工号
-                    Tab = sql_excute.search_by_userid(search_thing);
-                    show_result((String[][]) Tab);
-                }
-                else{   //按姓名
-                    Tab = sql_excute.search_by_username(search_thing);
-                    show_result((String[][]) Tab);
-                }
+                else {
+                    System.out.println("combox选中数字为："+select_num);
+                    if (select_num == 0){   //按部门
+                        if (au_id == 0){
+                            Tab = sql_excute.search_by_department(search_thing);
+                        }
+                        else {
+                            text.setText(Integer.toString(department_id));
+                            Tab = sql_excute.search_by_department_notadmin_deleteinterface(Integer.toString(department_id));
+                        }
 
+                        show_result((String[][]) Tab);
+                    }
+                    else if (select_num == 1){    //按工号
+
+                        Tab = sql_excute.search_by_userid(search_thing,au_id,department_id);
+                        show_result((String[][]) Tab);
+                    }
+                    else{   //按姓名
+                        Tab = sql_excute.search_by_username(search_thing,au_id,department_id);
+
+                        show_result((String[][]) Tab);
+                    }
+                }
                 //new data_show(Tab,name);
                 //table.repaint();
 

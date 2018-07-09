@@ -29,36 +29,24 @@ public class admin_modify_interface extends JFrame implements ActionListener {
 
     String Tab[][] = new String[30][6];
     String modify_data[] = new String[6];
+    int au_id = 0;
+    int department_id = 0;
 
 
-    /**
-     * Launch the application.
-     */
-//    public static void main(String[] args) {
-//        EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                try {
-//                    admin_modify_interface frame = new admin_modify_interface();
-//                    frame.setVisible(true);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        });
-//    }
-
-    public admin_modify_interface() {
-
+    public admin_modify_interface(int au_id,int department_id) {
+        this.au_id = au_id;
+        this.department_id = department_id;
         setTitle("信息修改界面");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 550, 370);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(670, 350, 550, 370);
+        setResizable(false);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
 
-        JLabel label = new JLabel("\u59D3\u540D");
+        JLabel label = new JLabel("部门编号");
         label.setBounds(10, 291, 54, 23);
         contentPane.add(label);
 
@@ -85,7 +73,7 @@ public class admin_modify_interface extends JFrame implements ActionListener {
 
         contentPane.add(btnexcel);
 
-        JLabel label_1 = new JLabel("\u59D3\u540D");
+        JLabel label_1 = new JLabel("姓名");
         label_1.setBounds(364, 17, 54, 15);
         contentPane.add(label_1);
 
@@ -243,14 +231,27 @@ public class admin_modify_interface extends JFrame implements ActionListener {
         switch (e.getActionCommand()){
             case "搜索":
                 System.out.println("搜索按钮捕获");
-                Tab = sql_excute.search_by_username_all(search_string);
-                for (int i=0;i<Tab.length;i++){
-                    for (int j=0;j<6;j++){
-                        System.out.print(Tab[i][j]+" ");
-                    }
-                    System.out.println();
+                if (au_id == 0 & search_string.length() == 0){
+                    JOptionPane.showMessageDialog(null,"搜索信息不能为空","搜索提示",JOptionPane.INFORMATION_MESSAGE);
                 }
-                show_result(Tab);
+                else{
+                    if (au_id == 0){
+                        Tab = sql_excute.search_by_department_admin(Integer.parseInt(search_string));
+                    }
+                    else {
+                        Tab = sql_excute.search_by_department_notadmin(department_id);
+                        textField.setText(Integer.toString(department_id));
+                    }
+                    for (int i=0;i<Tab.length;i++){
+                        for (int j=0;j<6;j++){
+                            System.out.print(Tab[i][j]+" ");
+                        }
+                        System.out.println();
+                    }
+                    show_result(Tab);
+                    break;
+
+                }
                 break;
             case "保存":
                 get_modify_data();

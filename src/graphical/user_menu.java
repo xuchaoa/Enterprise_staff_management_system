@@ -12,8 +12,9 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public class user_menu extends JFrame implements ActionListener {
-    String username = "admin";
-    public user_menu (String s,String username) {
+    String user_id = null;
+    public user_menu (String s,String user_id) {
+        this.user_id = user_id;
         setTitle(s);
         setLayout(null);                               //设置布局为空布局
         init();
@@ -89,7 +90,7 @@ public class user_menu extends JFrame implements ActionListener {
 //        JButton b=new JButton("查询");
 //        add(b);
 //        b.setBounds(27,260,70,40);
-        JButton c=new JButton("退出");
+        JButton c=new JButton("注销");
         add(c);
         c.setBounds(127,260,70,40);
         JButton e=new JButton("修改");
@@ -107,20 +108,20 @@ public class user_menu extends JFrame implements ActionListener {
 
             case "个人信息修改查询":
                 System.out.println("个人信息修改按钮捕获");
-                new user_modify("admin");
+                new user_modify(user_id);
                 break;
             case "关于":
                 System.out.println("关于按钮捕获");
                 JOptionPane.showMessageDialog(null,"Archerx","about",JOptionPane.INFORMATION_MESSAGE);
                 break;
-            case "退出":
+            case "注销":
                 System.out.println("退出按钮捕获");
                 dispose();
                 new main_login();
                 break;
             case "修改":
                 System.out.println("修改按钮捕获");
-                new user_modify(username);
+                new user_modify(user_id);
                 break;
         }
     }

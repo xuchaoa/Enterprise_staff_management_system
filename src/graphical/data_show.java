@@ -1,4 +1,4 @@
-package graphical;
+package graphical;      //单独弹出表格显示查询结果
 
 import javax.swing.*;
 import java.awt.*;

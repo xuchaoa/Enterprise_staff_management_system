@@ -21,12 +21,12 @@ public class user_modify extends JFrame implements ActionListener {
     private JTextField textField_5;
 
     String user_data[][] = new String[30][6];  //查询结果存储
-    String username;     //token
+    String user_id;     //token
     /**
      * Create the frame.
      */
-    public user_modify(String username) {
-        this.username = username;
+    public user_modify(String user_id) {
+        this.user_id = user_id;
 
         setVisible(true);
         setTitle("个人信息查询修改");
@@ -104,21 +104,22 @@ public class user_modify extends JFrame implements ActionListener {
 
         show_textfiled(user_data);   //查询到的的用户信息显示到窗体上
 
-        System.out.println("数据库返回查询序列如下：");
-        for(int i=0;i<1;i++)
-            for (int j=0;j<6;j++)
-                System.out.print(user_data[i][j]+" ");
+
     }
 
     public void show_textfiled(String user_data[][]){
-        System.out.println("查询的用户名："+username);
-        user_data = sql_excute.search_by_username_all(username);
+        System.out.println("查询的id："+user_id);
+        user_data = sql_excute.search_by_username_all(user_id);
         textField.setText(user_data[0][0]);
         textField_1.setText(user_data[0][1]);
         textField_2.setText(user_data[0][2]);
         textField_3.setText(user_data[0][3]);
         textField_4.setText(user_data[0][4]);
         textField_5.setText(user_data[0][5]);
+        System.out.println("数据库返回查询序列如下：");
+        for(int i=0;i<1;i++)
+            for (int j=0;j<6;j++)
+                System.out.print(user_data[i][j]+" ");
     }
 
     public void updata_user_data(){  //修改信息写回数据库

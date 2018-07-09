@@ -19,7 +19,8 @@ public class register extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
         this.setTitle("信息录入");
-        this.setBounds(400,200,600,470);
+        setResizable(false);
+        this.setBounds(670,300,600,470);
     }
     public void inituser_register(){
         setLayout(new FlowLayout());

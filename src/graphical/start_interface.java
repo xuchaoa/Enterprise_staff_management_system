@@ -32,7 +32,7 @@ public class start_interface extends JFrame {
 
         //panel.setBackground(Color.gray);   //画板背景
         this.setSize(1000,500);
-        this.setLocation(200,50);
+        this.setLocation(440,250);
         //setLocationRelativeTo(null);   //组件当前未显示或者 c 为 null，则此窗口将置于屏幕的中央。
 
 
