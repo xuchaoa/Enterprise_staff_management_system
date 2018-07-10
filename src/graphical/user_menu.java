@@ -18,10 +18,11 @@ public class user_menu extends JFrame implements ActionListener {
         setTitle(s);
         setLayout(null);                               //设置布局为空布局
         init();
-        setSize(340,400);
-        setLocation(350, 160);
+        setSize(800,560);
+        setLocation(570, 230);
         setVisible(true);
         validate();
+        setResizable(false);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
@@ -69,7 +70,7 @@ public class user_menu extends JFrame implements ActionListener {
         ImageIcon img = new ImageIcon("user.jpg");
         jb1.setIcon(img);
         add(jb1);
-        jb1.setBounds(65, 20, 200, 200);
+        jb1.setBounds(270, 60, 250, 250);
 
 
         // 加载背景图片
@@ -92,10 +93,10 @@ public class user_menu extends JFrame implements ActionListener {
 //        b.setBounds(27,260,70,40);
         JButton c=new JButton("注销");
         add(c);
-        c.setBounds(127,260,70,40);
+        c.setBounds(230,380,90,40);
         JButton e=new JButton("修改");
         add(e);
-        e.setBounds(227,260,70,40);
+        e.setBounds(470,380,90,40);
         //b.addActionListener(this);
         c.addActionListener(this);
         e.addActionListener(this);

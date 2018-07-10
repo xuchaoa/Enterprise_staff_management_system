@@ -58,7 +58,12 @@ public class start_interface extends JFrame {
         Bar.setIndeterminate(true);//进度条采用不明确显示进度的‘模糊模式’，
         for(int i=0;i<=100;i++) {
             Bar.setValue(i);
-            //Thread.sleep(20);
+            try {
+                Thread.sleep(30);
+            } catch (InterruptedException e) {
+
+                e.printStackTrace();
+            }
         }
 
         dispose(); //关闭窗口
@@ -68,11 +73,7 @@ public class start_interface extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        try{
-            Thread.sleep(2000);
-        }catch (Exception E){
 
-        }
         dispose();
     }
 

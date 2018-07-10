@@ -34,7 +34,7 @@ class verification_code extends Panel {
         g.setFont(new Font("黑体",Font.BOLD,20));//设置验证码字体以及大小
         g.setColor(Color.RED);//设置验证码字体颜色
         //生成随机验证码
-        char[] tmp = ("23456789abcdefghjkmnpqrstuvwxyzABCDEFGHJKMNPQRSTUVWXYZ").toCharArray();
+        char[] tmp = ("23456789abdefhjkmnpqrstuvwxyzABDEFHJKMNPQRSTUVWXYZ").toCharArray();
         for(int i = 0;i<4;i++)
         {
             int pos = r.nextInt(tmp.length);
@@ -203,38 +203,45 @@ public class main_login extends JFrame implements ActionListener {
         boolean result = false;
         int au_id = 0;
         int user_id = 0;
+        boolean username_status = true;
         if (username.length()!=0&&passwd.length()!=0){
             result =  sql_excute.sql_connect(username,passwd);
             au_id = sql_excute.get_authority(username);
             user_id = sql_excute.by_name_get_userid(username);  //获取当前用户 user_id
+            //username_status = sql_excute.get_all_username(username);
         }
 
 
         System.out.println("passwd:"+passwd);
         System.out.println(code+current_code);
-        System.out.println(code.equals(current_code));
+        System.out.println("登陆判断结果："+result);
         switch (e.getActionCommand()) {
 
             case "登陆":
-                if (username.length()!=0 & passwd.length()!=0&code.length()!=0) {
-                    if (result == true & code.equals(current_code) & au_id == 0){ //管理员身份
-                        JOptionPane.showMessageDialog(null,"Welcome Back ! "+username +"您的身份是管理员","登陆提示",JOptionPane.INFORMATION_MESSAGE);
-                        new admin_menu("管理员主菜单",username,au_id,user_id,10,10,500,500);  //主键参数传输
-                        this.dispose();
-                    }
-                    else if (result == true & code.equals(current_code) & au_id == 1){  //部长
-                        JOptionPane.showMessageDialog(null,"Welcome Back! "+username+"您的身份是部长","登陆提示",JOptionPane.INFORMATION_MESSAGE);
-                        new admin_menu("部长主菜单",username,au_id,user_id,10,10,500,500);
-                        this.dispose();
-                    }
-                    else if (result == true & code.equals(current_code) & au_id == 2){   //普通用户
-                        JOptionPane.showMessageDialog(null,"Welcome Back! "+username+"您的身份是员工","登陆提示",JOptionPane.INFORMATION_MESSAGE);
-                        new user_menu("用户主菜单", Integer.toString(user_id));
-                        this.dispose();
+                if (username.length()!=0 & passwd.length()!=0 & code.length()!=0) {
+                    if (username_status == true){
+                        if (result == true & code.equals(current_code) & au_id == 0){ //管理员身份
+                            JOptionPane.showMessageDialog(null,"Welcome Back ! "+username +"您的身份是管理员","登陆提示",JOptionPane.INFORMATION_MESSAGE);
+                            new admin_menu("管理员主菜单",username,au_id,user_id,570,230,800,560);  //主键参数传输
+                            this.dispose();
+                        }
+                        else if (result == true & code.equals(current_code) & au_id == 1){  //部长
+                            JOptionPane.showMessageDialog(null,"Welcome Back! "+username+"您的身份是部长","登陆提示",JOptionPane.INFORMATION_MESSAGE);
+                            new admin_menu("部长主菜单",username,au_id,user_id,570,230,800,500);
+                            this.dispose();
+                        }
+                        else if (result == true & code.equals(current_code) & au_id == 2){   //普通用户
+                            JOptionPane.showMessageDialog(null,"Welcome Back! "+username+"您的身份是员工","登陆提示",JOptionPane.INFORMATION_MESSAGE);
+                            new user_menu("用户主菜单", Integer.toString(user_id));
+                            this.dispose();
+                        }
+                        else {
+                            JOptionPane.showMessageDialog(null,"用户名、密码或者验证码错误","登陆提示",JOptionPane.INFORMATION_MESSAGE);
+                            //new main_login();
+                        }
                     }
                     else {
-                        JOptionPane.showMessageDialog(null,"用户名、密码或者验证码错误","登陆提示",JOptionPane.INFORMATION_MESSAGE);
-                        //new main_login();
+                        JOptionPane.showMessageDialog(null,"用户名不存在","登陆提示",JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
                 else{

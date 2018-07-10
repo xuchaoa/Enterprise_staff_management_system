@@ -29,9 +29,10 @@ public class user_modify extends JFrame implements ActionListener {
         this.user_id = user_id;
 
         setVisible(true);
+        setResizable(false);
         setTitle("个人信息查询修改");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(750, 350, 450, 300);
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
@@ -109,7 +110,8 @@ public class user_modify extends JFrame implements ActionListener {
 
     public void show_textfiled(String user_data[][]){
         System.out.println("查询的id："+user_id);
-        user_data = sql_excute.search_by_username_all(user_id);
+        user_data = sql_excute.search_by_userid_all(user_id);
+
         textField.setText(user_data[0][0]);
         textField_1.setText(user_data[0][1]);
         textField_2.setText(user_data[0][2]);

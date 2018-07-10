@@ -37,9 +37,10 @@ class Delete_interface extends JFrame implements ActionListener {
         this.username = username;
 
         init(s);
-        setLocation(670,300);
-        setSize(800,750);
+        setLocation(560,100);
+        setSize(830,750);
         setVisible(true);
+        setResizable(false);
         validate();
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
