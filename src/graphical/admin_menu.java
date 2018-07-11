@@ -11,7 +11,7 @@ class admin_menu extends JFrame implements ActionListener {
 
     JMenuBar menubar;   //创建菜单栏;
     JMenu menu1,menu2,menu3,menu4;         //创建菜单名；员工信息管理、员工信息查询、系统维护、帮助
-    JMenuItem item1,item2,item3,item4;          //创建菜单项1；录入、修改、删除。
+    JMenuItem item1,item2,item3,item4,item5;          //创建菜单项1；录入、修改、删除。
     JMenuItem query1,query2,query3;          //创建菜单项2；录入、修改、删除。
     JMenuItem maintain1,maintain2;          //创建菜单项3；修改密码、数据备份。
     int au_id = 0;
@@ -45,10 +45,12 @@ class admin_menu extends JFrame implements ActionListener {
         item2 = new JMenuItem("修改");
         item2.setAccelerator(KeyStroke.getKeyStroke('F'));
         item4 = new JMenuItem("关于");
+        item5 = new JMenuItem("导出到Excel表格");
 
         item4.addActionListener(this);     //添加监听器
         item2.addActionListener(this);
         item1.addActionListener(this);
+        item5.addActionListener(this);
 
 
 
@@ -92,6 +94,7 @@ class admin_menu extends JFrame implements ActionListener {
         menu2.add(query1);
         menu2.addSeparator();
         menu3.add(maintain2);
+        menu3.add(item5);
         menu4.add(item4);
         menubar.add(menu1);
         menubar.add(menu2);
@@ -139,6 +142,11 @@ class admin_menu extends JFrame implements ActionListener {
                 System.out.println("数据备份界面捕获");
                 String back_path = sql_excute.database_backup();
                 JOptionPane.showMessageDialog(null,"成功备份到："+back_path,"备份成功",JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case "导出到Excel表格":
+                String result = sql_excute.get_all_data_to_excel().toString();
+                export_to_excel test = new export_to_excel();
+                test.fileChooser(result);
                 break;
 
         }

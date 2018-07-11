@@ -24,7 +24,7 @@ public class sql_excute {
     public static boolean sql_connect(String username, String passwd) {
 
         String current_password = null;
-
+        boolean result = false;
 
         //驱动程序名
         String driver = "com.mysql.jdbc.Driver";
@@ -67,11 +67,18 @@ public class sql_excute {
         }
         System.out.println("输入的密码" + passwd);
         System.out.println("查询到的密码" + current_password);
-        if (current_password.equals(passwd)) {
-            return true;
-        } else
-            return false;
+
+        if (current_password != null && current_password.length() > 0 && passwd != null && passwd.length() > 0) {
+            if (current_password.equals(passwd)) {
+                result = true;
+            }
+        }
+        else {
+            result = false;
+        }
+        return result;
     }
+
 
     public static void close_connect() {
         try {
@@ -446,6 +453,7 @@ public class sql_excute {
     }
 
     public static boolean get_all_username(String username) {
+
         String sql = "select * from esm.alluser";
         int a = 0;
         String result[] = new String[30];
@@ -469,8 +477,10 @@ public class sql_excute {
         System.out.println();
         System.out.println(result[0].equals(username));
         for (int i = 0; i < result.length; i++) {
-            if (result[i].equals(username)) {
-                tips = 1;
+            if (result[i] != null && result[i].length() > 0){
+                if (result[i].equals(username)) {
+                    tips = 1;
+                }
             }
         }
         if (tips != 1) {
@@ -498,5 +508,28 @@ public class sql_excute {
             e.printStackTrace();
         }
         return user_id;
+    }
+
+    public static StringBuilder get_all_data_to_excel(){
+        StringBuilder result = new StringBuilder();
+        sql_connect("admin", "admin");
+        String sql = "select * from esm.alluser";
+        System.out.println("执行的sql语句：" + sql);
+        try {
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+
+                result.append(rs.getString("name")+",");
+                result.append(rs.getString("sex")+",");
+                result.append(rs.getString("age")+",");
+                result.append(rs.getString("department_id")+",");
+                result.append(rs.getString("user_id")+",");
+                result.append(rs.getString("password")+"\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("全部信息字符串为："+result);
+        return result;
     }
 }

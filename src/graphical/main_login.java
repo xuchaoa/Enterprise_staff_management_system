@@ -208,7 +208,7 @@ public class main_login extends JFrame implements ActionListener {
             result =  sql_excute.sql_connect(username,passwd);
             au_id = sql_excute.get_authority(username);
             user_id = sql_excute.by_name_get_userid(username);  //获取当前用户 user_id
-            //username_status = sql_excute.get_all_username(username);
+            username_status = sql_excute.get_all_username(username);
         }
 
 
@@ -218,7 +218,7 @@ public class main_login extends JFrame implements ActionListener {
         switch (e.getActionCommand()) {
 
             case "登陆":
-                if (username.length()!=0 & passwd.length()!=0 & code.length()!=0) {
+                if (username!=null && username.length()>0 && passwd != null && passwd.length()>0 && code != null && code.length()>0) {
                     if (username_status == true){
                         if (result == true & code.equals(current_code) & au_id == 0){ //管理员身份
                             JOptionPane.showMessageDialog(null,"Welcome Back ! "+username +"您的身份是管理员","登陆提示",JOptionPane.INFORMATION_MESSAGE);
