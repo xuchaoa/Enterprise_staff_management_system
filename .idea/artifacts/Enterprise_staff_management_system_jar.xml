@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Enterprise_staff_management_system:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Enterprise_staff_management_system_jar</output-path>
+    <root id="archive" name="Enterprise_staff_management_system.jar">
+      <element id="module-output" name="Enterprise_staff_management_system" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/mysql-connector-java-5.1.44/mysql-connector-java-5.1.44/mysql-connector-java-5.1.44-bin.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

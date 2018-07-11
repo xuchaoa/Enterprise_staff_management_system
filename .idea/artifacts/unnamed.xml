@@ -1,0 +1,17 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="unnamed">
+    <output-path>$USER_HOME$/Desktop</output-path>
+    <root id="archive" name="unnamed.jar">
+      <element id="artifact" artifact-name="Enterprise_staff_management_system:jar" />
+      <element id="file-copy" path="$USER_HOME$/Desktop/mysql-connector-java-5.1.44/mysql-connector-java-5.1.44/mysql-connector-java-5.1.44-bin.jar" />
+      <element id="file-copy" path="$PROJECT_DIR$/user.jpg" />
+      <element id="file-copy" path="$PROJECT_DIR$/logo.png" />
+      <element id="file-copy" path="$PROJECT_DIR$/6.jpg" />
+      <element id="file-copy" path="$PROJECT_DIR$/1.jpg" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/2.jpg" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/admin.jpg" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/login.jpg" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src" />
+    </root>
+  </artifact>
+</component>

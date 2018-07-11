@@ -7,10 +7,6 @@ public class data_show extends JFrame {
     public data_show(String a[][],String name[]){
         JPanel p=new JPanel();
         JTable table;
-//        Object a[][] = new Object[45][6];
-//        Object name[] = {"姓名","性别","年龄","所属部门","工号","登录密码"};
-
-
         table = new JTable(a,name);           //表格
         Container con = getContentPane();
         getContentPane().add(new JScrollPane(table), BorderLayout.CENTER);

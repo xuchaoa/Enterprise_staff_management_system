@@ -147,12 +147,15 @@ public class register extends JFrame implements ActionListener {
         System.out.println("获取到的数据字符串："+au_id+department_id+name+sex+age+password);
         switch (e.getActionCommand()){
             case "录入":
-                if (au_id.length()==0|department_id.length()==0|name.length()==0|sex.length()==0|age.length()==0|password.length()==0){
-                    JOptionPane.showMessageDialog(null,"信息不能为空","录入提示",JOptionPane.WARNING_MESSAGE);
+                if (au_id != null && au_id.length()!=0 && department_id != null && department_id.length()!=0 && name != null && name.length() != 0 && sex != null && sex.length()!=0 && age != null && age.length() != 0 && password != null && password.length() != 0){
+                    sql_excute.register(au_id,department_id,name,sex,age,password);
+                    sql_excute.inertinto_authority(au_id);
+                    sql_excute.inertinto_department(department_id);
+                    JOptionPane.showMessageDialog(null,"录入成功","登陆提示",JOptionPane.INFORMATION_MESSAGE);
+
 
                 }else {
-                    sql_excute.register(au_id,department_id,name,sex,age,password);
-                    JOptionPane.showMessageDialog(null,"录入成功","登陆提示",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"信息不能为空","录入提示",JOptionPane.WARNING_MESSAGE);
                 }
 
                 break;

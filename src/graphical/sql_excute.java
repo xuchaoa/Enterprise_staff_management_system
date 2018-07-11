@@ -79,7 +79,6 @@ public class sql_excute {
         return result;
     }
 
-
     public static void close_connect() {
         try {
             statement.close();
@@ -97,7 +96,26 @@ public class sql_excute {
             System.out.println(e.toString());
         }
     }
+    public static void inertinto_authority(String au_id) {
+        String sql = "insert into esm.authority(authority) values (" + au_id + ")";
+        System.out.println("当前执行的sql语句：" + sql);
+        try {
+            statement.executeUpdate(sql);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
 
+
+    }
+    public static void inertinto_department( String department_id) {
+        String sql = "insert into esm.department(department_name, department_number) values (" + department_id + ","+department_id+")";
+        System.out.println("当前执行的sql语句：" + sql);
+        try {
+            statement.executeUpdate(sql);
+        } catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
     public static void modify() {   //修改
 
     }
@@ -532,4 +550,6 @@ public class sql_excute {
         System.out.println("全部信息字符串为："+result);
         return result;
     }
+
+
 }

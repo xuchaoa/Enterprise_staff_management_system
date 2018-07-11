@@ -183,16 +183,6 @@ public class admin_modify_interface extends JFrame implements ActionListener {
         this.textField_5.setText((String) table.getValueAt(selectedRow,4));
         this.textField_6.setText((String) table.getValueAt(selectedRow,5));
 
-//        this.textField_5.setText((String) table.getValueAt(selectedRow,5));
-//        this.textField_6.setText((String) table.getValueAt(selectedRow,6));
-
-
-//        this.wordwidTxt.setText(table.getValueAt(selectedRow,0)+"");
-//        this.wordTxt.setText(table.getValueAt(selectedRow, 1)+"");
-//        this.vocabularyCb.setSelectedItem(table.getValueAt(selectedRow, 2));
-//        this.meaningListTxt.setText(table.getValueAt(selectedRow, 3)+"");
-//        this.egTxt.setText(table.getValueAt(selectedRow, 4)+"");
-//        this.transTxt.setText(table.getValueAt(selectedRow, 5)+"");
     }
 
 

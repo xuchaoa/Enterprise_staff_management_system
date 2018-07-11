@@ -160,12 +160,6 @@ class Delete_interface extends JFrame implements ActionListener {
         System.out.println("鼠标事件捕获");
         int selectedRow = this.table.getSelectedRow();
         System.out.println("选中行的姓名："+table.getValueAt(selectedRow,1));
-//        this.wordwidTxt.setText(table.getValueAt(selectedRow,0)+"");
-//        this.wordTxt.setText(table.getValueAt(selectedRow, 1)+"");
-//        this.vocabularyCb.setSelectedItem(table.getValueAt(selectedRow, 2));
-//        this.meaningListTxt.setText(table.getValueAt(selectedRow, 3)+"");
-//        this.egTxt.setText(table.getValueAt(selectedRow, 4)+"");
-//        this.transTxt.setText(table.getValueAt(selectedRow, 5)+"");
     }
 
     public void show_result(String Tab[][]){
